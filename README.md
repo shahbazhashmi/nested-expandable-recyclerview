@@ -2,9 +2,9 @@
 
 ### Introduction
 
-**Nested Expandable RecyclerView** is a simple and light weight demonstration to achieve nested (multi-level) and expandble/collapsable recyclerview in android. Suppose you added a model Country.kt. Then you need to add below code in RowModel.kt.
+**Nested Expandable RecyclerView** is a simple and light weight demonstration to achieve nested (multi-level) and expandble/collapsable recyclerview in android. Suppose you want to add country as parent in the list. Then you need to add below code in RowModel.kt.
 
-<img src="demo1.gif?raw=true width="100px">
+<img src="demo1.gif?raw=true" width="350px">
 
 <br>
 
