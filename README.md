@@ -2,7 +2,10 @@
 
 ### Introduction
 
-**Nested Expandable RecyclerView** is a simple and light weight demonstration to achieve nested (multi-level) and expandble/collapsable recyclerview in android. For example - below country -> state -> city multilevel list
+**Nested Expandable RecyclerView** is a simple and light weight demonstration to achieve nested (multi-level) and expandble/collapsable recyclerview in android. For example - below country -> state -> city multilevel list.
+<br>
+
+
 <img src="demo1.gif?raw=true" width="350px">
 
 <br>
