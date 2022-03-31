@@ -1,4 +1,4 @@
-package matrixsystems.nestedexpandablerecyclerview.models
+package matrixsystems.example.models
 
 /**
  * Created by Shahbaz Hashmi on 26/04/19.
