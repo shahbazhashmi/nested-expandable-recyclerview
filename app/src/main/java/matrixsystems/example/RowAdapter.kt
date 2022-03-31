@@ -1,19 +1,19 @@
-package matrixsystems.nestedexpandablerecyclerview
+package matrixsystems.example
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
-import matrixsystems.nestedexpandablerecyclerview.models.RowModel
+import androidx.recyclerview.widget.RecyclerView
+import matrixsystems.example.models.RowModel
 
 /**
  * Created by Shahbaz Hashmi on 26/04/19.
  */
-class RowAdapter (val context: Context, var rowModels: MutableList<RowModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class RowAdapter (private val context: Context, var rowModels: MutableList<RowModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     /**
      * flag to restrict expand / collapse action it is already expanding / collapsing
@@ -21,33 +21,21 @@ class RowAdapter (val context: Context, var rowModels: MutableList<RowModel>) : 
     private var actionLock = false
 
     class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var name_tv: TextView
-        internal var toggle_btn : ImageButton
-        init {
-            this.name_tv = itemView.findViewById(R.id.name_tv) as TextView
-            this.toggle_btn = itemView.findViewById(R.id.toggle_btn) as ImageButton
-        }
+        internal val nameTv: TextView = itemView.findViewById(R.id.name_tv) as TextView
+        internal val toggleBtn : ImageButton = itemView.findViewById(R.id.toggle_btn) as ImageButton
     }
 
     class StateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var name_tv: TextView
-        internal var toggle_btn : ImageButton
-        init {
-            this.name_tv = itemView.findViewById(R.id.name_tv) as TextView
-            this.toggle_btn = itemView.findViewById(R.id.toggle_btn) as ImageButton
-        }
+        internal val nameTv: TextView = itemView.findViewById(R.id.name_tv) as TextView
+        internal val toggleBtn : ImageButton = itemView.findViewById(R.id.toggle_btn) as ImageButton
     }
 
     class CityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var name_tv: TextView
-        init {
-            this.name_tv = itemView.findViewById(R.id.name_tv) as TextView
-        }
+        internal val nameTv: TextView = itemView.findViewById(R.id.name_tv) as TextView
     }
 
     override fun getItemViewType(position: Int): Int {
-        val type = rowModels[position].type
-        return type
+        return rowModels[position].type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -66,25 +54,29 @@ class RowAdapter (val context: Context, var rowModels: MutableList<RowModel>) : 
 
         when(row.type){
             RowModel.COUNTRY -> {
-                (p0 as CountryViewHolder).name_tv.setText(row.country.name)
+                (p0 as CountryViewHolder).nameTv.text = row.country.name
 
                 if(row.country.stateList == null || row.country.stateList!!.size == 0) {
-                    p0.toggle_btn.visibility = View.GONE
+                    p0.toggleBtn.visibility = View.GONE
                 }
                 else {
-                    if(p0.toggle_btn.visibility == View.GONE){
-                        p0.toggle_btn.visibility = View.VISIBLE
+                    if(p0.toggleBtn.visibility == View.GONE){
+                        p0.toggleBtn.visibility = View.VISIBLE
                     }
 
                     if (row.isExpanded) {
-                        p0.toggle_btn.background =
-                            ContextCompat.getDrawable(context, R.drawable.ic_remove_circle_outline_black_24dp)
+                        p0.toggleBtn.background =
+                            ContextCompat.getDrawable(context,
+                                R.drawable.ic_remove_circle_outline_black_24dp
+                            )
                     } else {
-                        p0.toggle_btn.background =
-                            ContextCompat.getDrawable(context, R.drawable.ic_control_point_black_24dp)
+                        p0.toggleBtn.background =
+                            ContextCompat.getDrawable(context,
+                                R.drawable.ic_control_point_black_24dp
+                            )
                     }
 
-                    p0.toggle_btn.setOnClickListener {
+                    p0.toggleBtn.setOnClickListener {
                         if (!actionLock) {
                             actionLock = true
                             if (row.isExpanded) {
@@ -99,26 +91,30 @@ class RowAdapter (val context: Context, var rowModels: MutableList<RowModel>) : 
                 }
             }
             RowModel.STATE -> {
-                (p0 as StateViewHolder).name_tv.setText(row.state.name)
+                (p0 as StateViewHolder).nameTv.text = row.state.name
 
                 if(row.state.cityList == null || row.state.cityList!!.size == 0) {
-                    p0.toggle_btn.visibility = View.GONE
+                    p0.toggleBtn.visibility = View.GONE
                 }
                 else {
-                    if(p0.toggle_btn.visibility == View.GONE){
-                        p0.toggle_btn.visibility = View.VISIBLE
+                    if(p0.toggleBtn.visibility == View.GONE){
+                        p0.toggleBtn.visibility = View.VISIBLE
                     }
 
                     if (row.isExpanded) {
-                        p0.toggle_btn.background =
-                            ContextCompat.getDrawable(context, R.drawable.ic_remove_circle_outline_black_24dp)
+                        p0.toggleBtn.background =
+                            ContextCompat.getDrawable(context,
+                                R.drawable.ic_remove_circle_outline_black_24dp
+                            )
                     } else {
-                        p0.toggle_btn.background =
-                            ContextCompat.getDrawable(context, R.drawable.ic_control_point_black_24dp)
+                        p0.toggleBtn.background =
+                            ContextCompat.getDrawable(context,
+                                R.drawable.ic_control_point_black_24dp
+                            )
                     }
                 }
 
-                p0.toggle_btn.setOnClickListener {
+                p0.toggleBtn.setOnClickListener {
                     if (!actionLock) {
                         actionLock = true
                         if (row.isExpanded) {
@@ -132,7 +128,7 @@ class RowAdapter (val context: Context, var rowModels: MutableList<RowModel>) : 
                 }
             }
             RowModel.CITY -> {
-                (p0 as CityViewHolder).name_tv.setText(row.city.name)
+                (p0 as CityViewHolder).nameTv.text = row.city.name
             }
         }
     }

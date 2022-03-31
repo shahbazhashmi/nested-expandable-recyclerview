@@ -2,7 +2,7 @@
 
 ### Introduction
 
-**Nested Expandable RecyclerView** is a simple and light weight demonstration to achieve nested (multi-level) and expandble/collapsable recyclerview in android. For example - below country -> state -> city multilevel list.
+**Nested Expandable RecyclerView** is a simple and light weight demonstration to achieve nested (multi-level) and expandable/collapsable recyclerview in android. For example - below country -> state -> city multilevel list.
 <br>
 
 
@@ -12,9 +12,9 @@
 
 ### Usage
 
-1. Add model as per need. And make make their type constant and a contructor in RowModel.kt .
+1. Add model as per need. And make make their type constant and a constructor in RowModel.kt .
 
-```markdown
+```
 const val COUNTRY = 1
 
 @IntDef(COUNTRY, STATE, CITY)
@@ -35,12 +35,8 @@ lateinit var country : Country
 
 ```
 class CountryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var name_tv: TextView
-        internal var toggle_btn : ImageButton
-        init {
-            this.name_tv = itemView.findViewById(R.id.name_tv) as TextView
-            this.toggle_btn = itemView.findViewById(R.id.toggle_btn) as ImageButton
-        }
+        internal val nameTv: TextView = itemView.findViewById(R.id.name_tv) as TextView
+        internal val toggleBtn : ImageButton = itemView.findViewById(R.id.toggle_btn) as ImageButton
     }
 
 
@@ -93,7 +89,7 @@ fun expand(position: Int) {
                  * remove element from below until it ends or find another node of same type
                  */
                 outerloop@ while (true) {
-                    if (nextPosition == rowModels.size || rowModels.get(nextPosition).type === RowModel.COUNTRY) {
+                    if (nextPosition == rowModels.size || rowModels.get(nextPosition).type == RowModel.COUNTRY) {
                         break@outerloop
                     }
 
@@ -113,32 +109,37 @@ fun expand(position: Int) {
 4. Set source list (should be in nested structure) in the adapter
 
 ```
-fun populateData(){
-        var cityList1 : MutableList<City> = mutableListOf()
-        cityList1.add(City("Patna"))
-        cityList1.add(City("Gaya"))
-        cityList1.add(City("Munger"))
-        cityList1.add(City("Siwan"))
-        cityList1.add(City("Chapra"))
+private fun populateData(){
+        val cityList1 : MutableList<City> = mutableListOf<City>().also {
+            it.add(City("Patna"))
+            it.add(City("Gaya"))
+            it.add(City("Munger"))
+            it.add(City("Siwan"))
+            it.add(City("Chapra"))
+        }
 
-        var cityList2 : MutableList<City> = mutableListOf()
-        cityList2.add(City("Mumbai"))
-        cityList2.add(City("Pune"))
-        cityList2.add(City("Aurangabad"))
-        cityList2.add(City("Nashik"))
-        cityList2.add(City("Nagpur"))
+        val cityList2 : MutableList<City> = mutableListOf<City>().also {
+            it.add(City("Mumbai"))
+            it.add(City("Pune"))
+            it.add(City("Aurangabad"))
+            it.add(City("Nashik"))
+            it.add(City("Nagpur"))
+        }
 
-        var stateList1 : MutableList<State> = mutableListOf()
-        stateList1.add(State("Bihar", cityList1))
-        stateList1.add(State("Maharashtra", cityList2))
 
-        var stateList2 : MutableList<State> = mutableListOf()
-        stateList2.add(State("New York", null))
+        val stateList1 : MutableList<State> = mutableListOf<State>().also {
+            it.add(State("Bihar", cityList1))
+            it.add(State("Maharashtra", cityList2))
+        }
+
+        val stateList2 : MutableList<State> = mutableListOf<State>().also {
+            it.add(State("New York", null))
+        }
 
 
         rows.add(RowModel(RowModel.COUNTRY, Country("India", stateList1)))
         rows.add(RowModel(RowModel.COUNTRY, Country("USA", stateList2)))
 
-        rowAdapter.notifyDataSetChanged()
+        rowAdapter.notifyItemInserted(rows.size)
     }
 ```

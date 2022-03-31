@@ -1,6 +1,6 @@
-package matrixsystems.nestedexpandablerecyclerview.models
+package matrixsystems.example.models
 
-import android.support.annotation.IntDef
+import androidx.annotation.IntDef
 
 /**
  * Created by Shahbaz Hashmi on 26/04/19.
@@ -18,7 +18,8 @@ class RowModel {
         const val CITY = 3
     }
 
-    @RowType var type : Int
+    @RowType
+    var type : Int
 
     lateinit var country : Country
 

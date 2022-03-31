@@ -1,4 +1,4 @@
-package matrixsystems.nestedexpandablerecyclerview
+package matrixsystems.example
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
